@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кофемания</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .custom-hr {
+      height: 3px;
+      background-color: grey;
+      border: none;
+      margin: 10px 0;
+    }
+    .address-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h1{
+      font-family:Brush Script MT, Brush Script Std, cursive;
+      text-align: center;
+      padding: 30px;
+
+    }
+    .wws{
+      text-align: center;
+    }
+
+    h4{
+      margin-left: 40px;
+      margin-top: 55px;
+    }
+    h5{
+      text-align: center;
+      margin-top: 35px;
+    }
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+    .catalog {
+    padding: 20px;
+  }
+
+  .menu-section {
+    margin-top: 70px;
+  }
+
+  .section-title {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .dish-card {
+    width: 180px;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .dish-card img {
+    width: 100%;
+    height: 150px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin: 10px 0;
+  }
+
+  .dish-card p {
+    margin: 5px 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .dish-name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .dish-price {
+    color: #28a745;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .btn-success {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .hr-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pre-hr {
+    width: 70%; /* Нужная ширина линии */
+    height: 3px;
+    background-color: grey;
+    border: none;
+    margin: 20px 0;
+  }
+
+  .about{
+    margin: 20px;
+  }
+
+  h3{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .contacts{
+    display: block;
+    text-align: center;
+  }
+  .nice01{
+    display: inline;
+    margin-bottom: 20px;
+  }
+
+  .nice01 img{
+    width: 60%;
+    height: 150px;
+    border-radius: 15px
+  }
+
+  /* Стили для модальных окон */
+  .modal-dish-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+
+  .ingredients-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .ingredients-list li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .ingredients-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #218838;
+    font-size: 20px;
+  }
+
+  .modal-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 15px;
+  }
+
+  /* Фикс для прокрутки */
+  section {
+    scroll-margin-top: 70px;
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar bg-body">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="img3.webp" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+
+      </a>
+      <div class="address-container">
+        <span>📍 Веселая 131</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Центрированная линия -->
+  <div class="d-flex justify-content-center">
+    <hr class="custom-hr" style="width: 85%">
+  </div>
+
+  <!-- Кнопка и offcanvas -->
+  <div class="container-fluid">
+    <button class="btn btn-body m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft">
+      ☰ Меню
+    </button>
+  </div>
+
+  <!-- Offcanvas панель -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasLeftLabel">Навигация</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="list-group">
+        <a href="#main" class="list-group-item list-group-item-action">Главная</a>
+        <a href="#catalog" class="list-group-item list-group-item-action">Каталог</a>
+        <a href="#about-us" class="list-group-item list-group-item-action">О нас</a>
+        <a href="#contact" class="list-group-item list-group-item-action">Контакты</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="main">
+    <h1>Кофемания</h1>
+    <p class="wws">Насладись хорошим кофе и стильным интерьером.</p>
+    <p class="wws">Добро пожаловать!</p>
+  </section>
+
+  <div class="hr-container">
+    <hr class="pre-hr">
+  </div>
+
+  <section id="catalog">
+    <div class="catalog">
+      <h4>Каталог</h4>
+
+      <!-- Горячее -->
+      <div class="menu-section hot">
+        <h5 class="section-title">Горячее</h5>
+
+        <div class="items-container">
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dishModal1">
+            <p class="dish-name">Стейк Рибай</p>
+            <p class="dish-price">2100₽</p>
+            <img src="img6.webp" alt="steak">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dishModal2">
+            <p class="dish-name">Филе Миньон</p>
+            <p class="dish-price">2300₽</p>
+            <img src="img6.webp" alt="fillet mignon">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dishModal3">
+            <p class="dish-name">Свиные Ребра</p>
+            <p class="dish-price">1800₽</p>
+            <img src="img6.webp" alt="pork ribs">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dishModal4">
+            <p class="dish-name">Лосось на Гриле</p>
+            <p class="dish-price">1900₽</p>
+            <img src="img6.webp" alt="grilled salmon">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Холодное -->
+      <div class="menu-section cold">
+        <h5 class="section-title">Холодное</h5>
+
+        <div class="items-container">
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#drinkModal1">
+            <p class="dish-name">Капучино</p>
+            <p class="dish-price">350₽</p>
+            <img src="img7.webp" alt="cappuccino">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#drinkModal2">
+            <p class="dish-name">Латте</p>
+            <p class="dish-price">350₽</p>
+            <img src="img7.webp" alt="latte">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#drinkModal3">
+            <p class="dish-name">Американо</p>
+            <p class="dish-price">250₽</p>
+            <img src="img7.webp" alt="americano">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#drinkModal4">
+            <p class="dish-name">Эспрессо</p>
+            <p class="dish-price">200₽</p>
+            <img src="img7.webp" alt="espresso">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Десерты -->
+      <div class="menu-section desserts">
+        <h5 class="section-title">Десерты</h5>
+
+        <div class="items-container">
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dessertModal1">
+            <p class="dish-name">Тирамису</p>
+            <p class="dish-price">450₽</p>
+            <img src="img8.webp" alt="tiramisu">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dessertModal2">
+            <p class="dish-name">Чизкейк</p>
+            <p class="dish-price">420₽</p>
+            <img src="img8.webp" alt="cheesecake">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+
+          <div class="dish-card" data-bs-toggle="modal" data-bs-target="#dessertModal3">
+            <p class="dish-name">Шоколадный фондан</p>
+            <p class="dish-price">380₽</p>
+            <img src="img8.webp" alt="chocolate fondant">
+            <button type="button" class="btn btn-success">Подробнее</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr-container">
+    <hr class="pre-hr">
+  </div>
+
+  <section id="about-us">
+    <h4>О нас</h4>
+    <div class="about-us">
+      <p class="about">☕ Добро пожаловать в нашу уютную кофейню! Мы создали место, где каждый глоток кофе становится особенным моментом. Наша миссия – дарить вам радость от идеального эспрессо, ароматного капучино и нежного латте, приготовленных из отборных зерен высшего качества.</p>
+      <p class="about">✨ Что делает нас особенными:
+        • Авторские кофейные миксы, созданные нашими бариста
+        • Уютная атмосфера с мягкими диванами и приглушенным светом
+        • Авторская выпечка к каждому напитку
+        • Регулярные мастер-классы по приготовлению кофе
+        • Система лояльности для постоянных гостей
+      </p>
+      <p class="about">🎯 Мы не просто варим кофе – мы создаем настроение! Каждое утро начинается здесь с ароматного пара и добрых улыбок. Присоединяйтесь к нашей кофейной семье и откройте для себя новые грани любимого напитка!</p>
+    </div>
+  </section>
+
+  <div class="hr-container">
+    <hr class="pre-hr">
+  </div>
+
+  <section id="contact">
+    <h3>Контакты</h3>
+    <div class="contacts">
+      <p>+79205000101</p>
+      <p>Vk</p>
+      <p>Instagram</p>
+      <p>Telegram</p>
+    </div>
+  </section>
+
+  <!-- Модальные окна для блюд -->
+
+  <div class="modal fade" id="dishModal1" tabindex="-1" aria-labelledby="dishModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dishModalLabel1">Стейк Рибай</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img6.webp"
+               alt="Стейк Рибай" class="modal-dish-img">
+          <p class="modal-price">2100₽</p>
+          <h6>Ингредиенты:</h6>
+          <ul class="ingredients-list">
+            <li>Мраморная говядина (300 г)</li>
+            <li>Морская соль</li>
+            <li>Свежемолотый перец</li>
+            <li>Травы</li>
+          </ul>
+          <p>Нежный стейк из мраморной говядины, приготовленный до совершенства.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dishModal2" tabindex="-1" aria-labelledby="dishModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dishModalLabel2">Филе Миньон</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img6.webp"
+               alt="Филе Миньон" class="modal-dish-img">
+          <p class="modal-price">2300₽</p>
+          <h6>Ингредиенты:</h6>
+          <ul class="ingredients-list">
+            <li>Говяжья вырезка (250 г)</li>
+            <li>Тимьян</li>
+            <li>Чеснок</li>
+            <li>Оливковое масло</li>
+          </ul>
+          <p>Нежнейшая говяжья вырезка с травами.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dishModal3" tabindex="-1" aria-labelledby="dishModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dishModalLabel3">Свиные Ребра</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img6.webp"
+               alt="Свиные Ребра" class="modal-dish-img">
+          <p class="modal-price">1800₽</p>
+          <h6>Ингредиенты:</h6>
+          <ul class="ingredients-list">
+            <li>Свиные ребра (500 г)</li>
+            <li>Барбекю соус</li>
+            <li>Мед</li>
+            <li>Специи</li>
+          </ul>
+          <p>Нежные свиные ребра в медово-остром соусе.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dishModal4" tabindex="-1" aria-labelledby="dishModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dishModalLabel4">Лосось на Гриле</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img6.webp"
+               alt="Лосось на Гриле" class="modal-dish-img">
+          <p class="modal-price">1900₽</p>
+          <h6>Ингредиенты:</h6>
+          <ul class="ingredients-list">
+            <li>Филе лосося (300 г)</li>
+            <li>Лимон</li>
+            <li>Укроп</li>
+            <li>Оливковое масло</li>
+          </ul>
+          <p>Сочное филе лосося с лимоном и травами.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="drinkModal1" tabindex="-1" aria-labelledby="drinkModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="drinkModalLabel1">Капучино</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img7.webp"
+               alt="Капучино" class="modal-dish-img">
+          <p class="modal-price">350₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Эспрессо</li>
+            <li>Молоко</li>
+            <li>Молочная пена</li>
+          </ul>
+          <p>Классический итальянский кофейный напиток.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="drinkModal2" tabindex="-1" aria-labelledby="drinkModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="drinkModalLabel2">Латте</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img7.webp"
+               alt="Латте" class="modal-dish-img">
+          <p class="modal-price">350₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Эспрессо</li>
+            <li>Больше молока</li>
+            <li>Нежная пенка</li>
+          </ul>
+          <p>Мягкий кофейный напиток с молоком.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="drinkModal3" tabindex="-1" aria-labelledby="drinkModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="drinkModalLabel3">Американо</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img7.webp"
+               alt="Американо" class="modal-dish-img">
+          <p class="modal-price">250₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Эспрессо</li>
+            <li>Горячая вода</li>
+          </ul>
+          <p>Классический черный кофе.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="drinkModal4" tabindex="-1" aria-labelledby="drinkModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="drinkModalLabel4">Эспрессо</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img7.webp"
+               alt="Эспрессо" class="modal-dish-img">
+          <p class="modal-price">200₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Молотый кофе</li>
+            <li>Вода под давлением</li>
+          </ul>
+          <p>Концентрированный кофейный напиток.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dessertModal1" tabindex="-1" aria-labelledby="dessertModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dessertModalLabel1">Тирамису</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img8.webp"
+               alt="Тирамису" class="modal-dish-img">
+          <p class="modal-price">450₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Печенье савоярди</li>
+            <li>Сыр маскарпоне</li>
+            <li>Кофе</li>
+            <li>Какао</li>
+          </ul>
+          <p>Классический итальянский десерт.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dessertModal2" tabindex="-1" aria-labelledby="dessertModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dessertModalLabel2">Чизкейк</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img8.webp"
+               alt="Чизкейк" class="modal-dish-img">
+          <p class="modal-price">420₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Творожный сыр</li>
+            <li>Печенье</li>
+            <li>Сахар</li>
+            <li>Ягоды</li>
+          </ul>
+          <p>Нежный десерт с ягодным соусом.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dessertModal3" tabindex="-1" aria-labelledby="dessertModalLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dessertModalLabel3">Шоколадный фондан</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <img src="img8.webp"
+               alt="Шоколадный фондан" class="modal-dish-img">
+          <p class="modal-price">380₽</p>
+          <h6>Состав:</h6>
+          <ul class="ingredients-list">
+            <li>Темный шоколад</li>
+            <li>Масло</li>
+            <li>Яйца</li>
+            <li>Сахар</li>
+          </ul>
+          <p>Шоколадный десерт с жидкой сердцевиной.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Фикс для прокрутки и модальных окон
+    document.addEventListener('DOMContentLoaded', function() {
+      // Закрытие offcanvas при клике на пункт меню
+      const menuLinks = document.querySelectorAll('.offcanvas-body a');
+      const offcanvasElement = document.getElementById('offcanvasLeft');
+
+      menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            // Закрываем offcanvas
+            const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+            offcanvas.hide();
+
+            // Плавная прокрутка к цели
+            setTimeout(() => {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }, 300);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
